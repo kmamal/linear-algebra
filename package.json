@@ -15,7 +15,6 @@
     "@kmamal/util": "^0.0.92"
   },
   "exports": {
-    "./_matrix": "./src/_matrix/index.js",
     "./vec3": "./src/vec3/index.js",
     "./mat3": "./src/mat3/index.js",
     "./mat2": "./src/mat2/index.js",
