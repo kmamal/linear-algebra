@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const { defineFor } = require('.')
+const { defineFor } = require('./vec2')
 const N = require('../../domains/number')
 const V2 = defineFor(N)
 
