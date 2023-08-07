@@ -7,14 +7,16 @@
     "url": "git@github.com:kmamal/linear-algebra.git"
   },
   "scripts": {
+    "test": "npx @kmamal/testing",
     "update-exports": "node ./scripts/update-exports.mjs"
   },
   "license": "MIT",
   "dependencies": {
-    "@kmamal/util": "^0.1.6"
+    "@kmamal/util": "^0.1.13"
   },
   "devDependencies": {
-    "@kmamal/testing": "^0.0.20"
+    "@kmamal/numbers": "^0.0.3",
+    "@kmamal/testing": "^0.0.24"
   },
   "exports": {
     "./vector": "./src/vector.js",

@@ -1,6 +1,6 @@
 const { test } = require('@kmamal/testing')
 const { defineFor } = require('./vec2')
-const N = require('../../domains/number')
+const N = require('@kmamal/numbers/js')
 const V2 = defineFor(N)
 
 const floatEqual = (t, actual, expected, tollerance = 1e-5) => t.ok(
