@@ -1,3 +1,4 @@
+const { memoize } = require('@kmamal/util/function/memoize')
 const { every } = require('@kmamal/util/array/every')
 const { map } = require('@kmamal/util/array/map')
 const { combine } = require('@kmamal/util/array/combine')
@@ -9,7 +10,7 @@ const combine$$$ = combine.$$$
 
 const _tmp = {}
 
-const defineFor = (Domain) => {
+const defineFor = memoize((Domain) => {
 	const {
 		__info: { isPrimitive },
 		isFinite: _isFinite,
@@ -220,6 +221,6 @@ const defineFor = (Domain) => {
 		...{ scale, norm, normSquared, normalize },
 		...{ fromNumbers, toNumbers },
 	}
-}
+})
 
 module.exports = { defineFor }
