@@ -1,4 +1,4 @@
-/* eslint-disable array-element-newline */
+/* eslint-disable @stylistic/array-element-newline */
 
 const { memoize } = require('@kmamal/util/function/memoize')
 const { swap } = require('@kmamal/util/array/swap')
@@ -40,18 +40,18 @@ const defineFor = memoize((Domain) => {
 		m12, m22, m32,
 		m13, m23, m33,
 	]) => true
-		&& _isFinite(m11) && _isFinite(m21) && _isFinite(m31)
-		&& _isFinite(m12) && _isFinite(m22) && _isFinite(m32)
-		&& _isFinite(m13) && _isFinite(m23) && _isFinite(m33)
+	&& _isFinite(m11) && _isFinite(m21) && _isFinite(m31)
+	&& _isFinite(m12) && _isFinite(m22) && _isFinite(m32)
+	&& _isFinite(m13) && _isFinite(m23) && _isFinite(m33)
 
 	const isNaN = ([
 		m11, m21, m31,
 		m12, m22, m32,
 		m13, m23, m33,
 	]) => false
-		|| _isNaN(m11) || _isNaN(m21) || _isNaN(m31)
-		|| _isNaN(m12) || _isNaN(m22) || _isNaN(m32)
-		|| _isNaN(m13) || _isNaN(m23) || _isNaN(m33)
+	|| _isNaN(m11) || _isNaN(m21) || _isNaN(m31)
+	|| _isNaN(m12) || _isNaN(m22) || _isNaN(m32)
+	|| _isNaN(m13) || _isNaN(m23) || _isNaN(m33)
 
 	const neg = ([
 		m11, m21, m31,
@@ -286,9 +286,9 @@ const defineFor = memoize((Domain) => {
 			b13, b23, b33,
 		],
 	) => true
-		&& _eq(a11, b11) && _eq(a21, b21) && _eq(a31, b31)
-		&& _eq(a12, b12) && _eq(a22, b22) && _eq(a32, b32)
-		&& _eq(a13, b13) && _eq(a23, b23) && _eq(a33, b33)
+	&& _eq(a11, b11) && _eq(a21, b21) && _eq(a31, b31)
+	&& _eq(a12, b12) && _eq(a22, b22) && _eq(a32, b32)
+	&& _eq(a13, b13) && _eq(a23, b23) && _eq(a33, b33)
 
 	const neq = (
 		[
@@ -302,9 +302,9 @@ const defineFor = memoize((Domain) => {
 			b13, b23, b33,
 		],
 	) => false
-		|| _neq(a11, b11) || _neq(a21, b21) || _neq(a31, b31)
-		|| _neq(a12, b12) || _neq(a22, b22) || _neq(a32, b32)
-		|| _neq(a13, b13) || _neq(a23, b23) || _neq(a33, b33)
+	|| _neq(a11, b11) || _neq(a21, b21) || _neq(a31, b31)
+	|| _neq(a12, b12) || _neq(a22, b22) || _neq(a32, b32)
+	|| _neq(a13, b13) || _neq(a23, b23) || _neq(a33, b33)
 
 	const scale = ([
 		m11, m21, m31,
@@ -489,6 +489,7 @@ const defineFor = memoize((Domain) => {
 	]
 
 	return {
+		Domain,
 		...{ identity },
 		...{ isFinite, isNaN },
 		...{ neg, add, sub, mul, transpose, mulVector },

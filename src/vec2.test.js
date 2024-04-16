@@ -1,7 +1,6 @@
 const { test } = require('@kmamal/testing')
-const { defineFor } = require('./vec2')
 const N = require('@kmamal/numbers/js')
-const V2 = defineFor(N)
+const V2 = require('./vec2').defineFor(N)
 
 const floatEqual = (t, actual, expected, tollerance = 1e-5) => t.ok(
 	Math.abs(actual - expected) < tollerance,

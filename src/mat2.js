@@ -1,4 +1,4 @@
-/* eslint-disable array-element-newline */
+/* eslint-disable @stylistic/array-element-newline */
 
 const { memoize } = require('@kmamal/util/function/memoize')
 const { swap } = require('@kmamal/util/array/swap')
@@ -33,15 +33,15 @@ const defineFor = memoize((Domain) => {
 		m11, m21,
 		m12, m22,
 	]) => true
-		&& _isFinite(m11) && _isFinite(m21)
-		&& _isFinite(m12) && _isFinite(m22)
+	&& _isFinite(m11) && _isFinite(m21)
+	&& _isFinite(m12) && _isFinite(m22)
 
 	const isNaN = ([
 		m11, m21,
 		m12, m22,
 	]) => false
-		|| _isNaN(m11) || _isNaN(m21)
-		|| _isNaN(m12) || _isNaN(m22)
+	|| _isNaN(m11) || _isNaN(m21)
+	|| _isNaN(m12) || _isNaN(m22)
 
 	const neg = ([
 		m11, m21,
@@ -209,8 +209,8 @@ const defineFor = memoize((Domain) => {
 		b11, b21,
 		b12, b22,
 	]) => true
-		&& _eq(a11, b11) && _eq(a21, b21)
-		&& _eq(a12, b12) && _eq(a22, b22)
+	&& _eq(a11, b11) && _eq(a21, b21)
+	&& _eq(a12, b12) && _eq(a22, b22)
 
 	const neq = ([
 		a11, a21,
@@ -219,8 +219,8 @@ const defineFor = memoize((Domain) => {
 		b11, b21,
 		b12, b22,
 	]) => false
-		|| _neq(a11, b11) || _neq(a21, b21)
-		|| _neq(a12, b12) || _neq(a22, b22)
+	|| _neq(a11, b11) || _neq(a21, b21)
+	|| _neq(a12, b12) || _neq(a22, b22)
 
 	const scale = ([
 		m11, m21,
@@ -310,6 +310,7 @@ const defineFor = memoize((Domain) => {
 	]
 
 	return {
+		Domain,
 		...{ identity },
 		...{ isFinite, isNaN },
 		...{ neg, add, sub, mul, transpose, mulVector },

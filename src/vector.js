@@ -215,6 +215,7 @@ const defineFor = memoize((Domain) => {
 	const toNumbers = (vec) => map(vec, _toNumber)
 
 	return {
+		Domain,
 		...{ isFinite, isNaN },
 		...{ neg, abs, add, sub, mul, div, dot },
 		...{ eq, neq },

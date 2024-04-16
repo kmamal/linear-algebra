@@ -4,7 +4,7 @@
   "description": "linear-algebra",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmamal/linear-algebra.git"
+    "url": "git+ssh://git@github.com:kmamal/linear-algebra.git"
   },
   "scripts": {
     "test": "npx @kmamal/testing",

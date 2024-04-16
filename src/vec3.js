@@ -341,9 +341,9 @@ const defineFor = memoize((Domain) => {
 
 	const dot = isPrimitive
 		? (a, b) => _ZERO
-			+ a[X] * b[X]
-			+ a[Y] * b[Y]
-			+ a[Z] * b[Z]
+		+ a[X] * b[X]
+		+ a[Y] * b[Y]
+		+ a[Z] * b[Z]
 		: (a, b) => _add(
 			_add(
 				_mul(a[X], b[X]),
@@ -389,23 +389,23 @@ const defineFor = memoize((Domain) => {
 
 	const eq = isPrimitive
 		? (a, b) => true
-			&& a[X] === b[X]
-			&& a[Y] === b[Y]
-			&& a[Z] === b[Z]
+		&& a[X] === b[X]
+		&& a[Y] === b[Y]
+		&& a[Z] === b[Z]
 		: (a, b) => true
-			&& _eq(a[X], b[X])
-			&& _eq(a[Y], b[Y])
-			&& _eq(a[Z], b[Z])
+		&& _eq(a[X], b[X])
+		&& _eq(a[Y], b[Y])
+		&& _eq(a[Z], b[Z])
 
 	const neq = isPrimitive
 		? (a, b) => false
-			|| a[X] !== b[X]
-			|| a[Y] !== b[Y]
-			|| a[Z] !== b[Z]
+		|| a[X] !== b[X]
+		|| a[Y] !== b[Y]
+		|| a[Z] !== b[Z]
 		: (a, b) => false
-			|| _neq(a[X], b[X])
-			|| _neq(a[Y], b[Y])
-			|| _neq(a[Z], b[Z])
+		|| _neq(a[X], b[X])
+		|| _neq(a[Y], b[Y])
+		|| _neq(a[Z], b[Z])
 
 	const scale = isPrimitive
 		? (a, _v) => [
@@ -449,9 +449,9 @@ const defineFor = memoize((Domain) => {
 
 	const normSquared = isPrimitive
 		? (a) => _ZERO
-			+ a[X] ** _TWO
-			+ a[Y] ** _TWO
-			+ a[Z] ** _TWO
+		+ a[X] ** _TWO
+		+ a[Y] ** _TWO
+		+ a[Z] ** _TWO
 		: (a) => dot(a, a)
 	const normSquaredTo = !isPrimitive
 		? (_dst, a) => dotTo(_dst, a, a)
@@ -488,6 +488,7 @@ const defineFor = memoize((Domain) => {
 	]
 
 	return {
+		Domain,
 		...{ X, Y, Z },
 		...{ isFinite, isNaN },
 		...{ x, y, z, clone, copy },
