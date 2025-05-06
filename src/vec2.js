@@ -6,7 +6,7 @@ const Y = 1
 const _tmp1 = {}
 const _tmp2 = {}
 
-const defineFor = memoize((Domain) => {
+const defineFor = memoize((Algebra) => {
 	const {
 		__info: { isPrimitive },
 		NaN: _NAN,
@@ -30,7 +30,7 @@ const defineFor = memoize((Domain) => {
 		min: _min,
 		fromNumber: _fromNumber,
 		toNumber: _toNumber,
-	} = Domain
+	} = Algebra
 
 	const _negTo = _neg.to
 	const _neg$$$ = _neg.$$$
@@ -55,287 +55,282 @@ const defineFor = memoize((Domain) => {
 	const _ONE = _fromNumber(1)
 	const _TWO = _fromNumber(2)
 
-	const isFinite = (a) => true
-		&& _isFinite(a[X])
-		&& _isFinite(a[Y])
+	const isFinite = ([ x, y ]) => true
+		&& _isFinite(x)
+		&& _isFinite(y)
 
-	const isNaN = (a) => false
-		|| _isNaN(a[X])
-		|| _isNaN(a[Y])
+	const isNaN = ([ x, y ]) => false
+		|| _isNaN(x)
+		|| _isNaN(y)
 
-	const x = isPrimitive
-		? (a) => a[X]
-		: (a) => _clone(a[X])
-	const xTo = !isPrimitive
-		? (_dst, a) => _copy(_dst, a[X])
-		: null
-	x.to = xTo
-
-	const y = isPrimitive
-		? (a) => a[X]
-		: (a) => _clone(a[X])
-	const yTo = !isPrimitive
-		? (_dst, a) => _copy(_dst, a[X])
-		: null
-	y.to = yTo
-
-	const clone = (a) => [
-		a[X],
-		a[Y],
-	]
-	const copy = (dst, a) => {
-		dst[X] = a[X]
-		dst[Y] = a[Y]
-	}
+	const clone = isPrimitive
+		? ([ x, y ]) => [
+			x,
+			y,
+		]
+		: ([ x, y ]) => [
+			_clone(x),
+			_clone(y),
+		]
+	const copy = isPrimitive
+		? (dst, [ x, y ]) => {
+			dst[X] = x
+			dst[Y] = y
+		}
+		: (dst, [ x, y ]) => {
+			_copy(dst[X], x)
+			_copy(dst[Y], y)
+		}
 
 	const neg = isPrimitive
-		? (a) => [
-			-a[X],
-			-a[Y],
+		? ([ x, y ]) => [
+			-x,
+			-y,
 		]
-		: (a) => [
-			_neg(a[X]),
-			_neg(a[Y]),
+		: ([ x, y ]) => [
+			_neg(x),
+			_neg(y),
 		]
 	const negTo = isPrimitive
-		? (dst, a) => {
-			dst[X] = -a[X]
-			dst[Y] = -a[Y]
+		? (dst, [ x, y ]) => {
+			dst[X] = -x
+			dst[Y] = -y
 			return dst
 		}
-		: (dst, a) => {
-			_negTo(dst[X], a[X])
-			_negTo(dst[Y], a[Y])
+		: (dst, [ x, y ]) => {
+			_negTo(dst[X], x)
+			_negTo(dst[Y], y)
 			return dst
 		}
 	const neg$$$ = isPrimitive
-		? (a) => {
-			a[X] = -a[X]
-			a[Y] = -a[Y]
-			return a
+		? (v) => {
+			const [ x, y ] = v
+			v[X] = -x
+			v[Y] = -y
+			return v
 		}
-		: (a) => {
-			_neg$$$(a[X])
-			_neg$$$(a[Y])
-			return a
+		: (v) => {
+			const [ x, y ] = v
+			_neg$$$(x)
+			_neg$$$(y)
+			return v
 		}
 	neg.to = negTo
 	neg.$$$ = neg$$$
 
-	const abs = isPrimitive
-		? (a) => [
-			_abs(a[X]),
-			_abs(a[Y]),
-		]
-		: (a) => [
-			_abs(a[X]),
-			_abs(a[Y]),
-		]
+	const abs = ([ x, y ]) => [
+		_abs(x),
+		_abs(y),
+	]
 	const absTo = isPrimitive
-		? (dst, a) => {
-			dst[X] = _abs(a[X])
-			dst[Y] = _abs(a[Y])
+		? (dst, [ x, y ]) => {
+			dst[X] = _abs(x)
+			dst[Y] = _abs(y)
 			return dst
 		}
-		: (dst, a) => {
-			_absTo(dst[X], a[X])
-			_absTo(dst[Y], a[Y])
+		: (dst, [ x, y ]) => {
+			_absTo(dst[X], x)
+			_absTo(dst[Y], y)
 			return dst
 		}
 	const abs$$$ = isPrimitive
-		? (a) => {
-			a[X] = _abs(a[X])
-			a[Y] = _abs(a[Y])
-			return a
+		? (v) => {
+			const [ x, y ] = v
+			v[X] = _abs(x)
+			v[Y] = _abs(y)
+			return v
 		}
-		: (a) => {
-			_abs$$$(a[X])
-			_abs$$$(a[Y])
-			return a
+		: (v) => {
+			const [ x, y ] = v
+			_abs$$$(x)
+			_abs$$$(y)
+			return v
 		}
 	abs.to = absTo
 	abs.$$$ = abs$$$
 
 	const add = isPrimitive
-		? (a, b) => [
-			a[X] + b[X],
-			a[Y] + b[Y],
+		? ([ ax, ay ], [ bx, by ]) => [
+			ax + bx,
+			ay + by,
 		]
-		: (a, b) => [
-			_add(a[X], b[X]),
-			_add(a[Y], b[Y]),
+		: ([ ax, ay ], [ bx, by ]) => [
+			_add(ax, bx),
+			_add(ay, by),
 		]
 	const addTo = isPrimitive
-		? (dst, a, b) => {
-			dst[X] = a[X] + b[X]
-			dst[Y] = a[Y] + b[Y]
+		? (dst, [ ax, ay ], [ bx, by ]) => {
+			dst[X] = ax + bx
+			dst[Y] = ay + by
 			return dst
 		}
-		: (dst, a, b) => {
-			_addTo(dst[X], a[X], b[X])
-			_addTo(dst[Y], a[Y], b[Y])
+		: (dst, [ ax, ay ], [ bx, by ]) => {
+			_addTo(dst[X], ax, bx)
+			_addTo(dst[Y], ay, by)
 			return dst
 		}
 	const add$$$ = isPrimitive
-		? (a, b) => {
-			a[X] += b[X]
-			a[Y] += b[Y]
+		? (a, [ bx, by ]) => {
+			a[X] += bx
+			a[Y] += by
 			return a
 		}
-		: (a, b) => {
-			_add$$$(a[X], b[X])
-			_add$$$(a[Y], b[Y])
+		: (a, [ bx, by ]) => {
+			const [ ax, ay ] = a
+			_add$$$(ax, bx)
+			_add$$$(ay, by)
 			return a
 		}
 	add.to = addTo
 	add.$$$ = add$$$
 
 	const sub = isPrimitive
-		? (a, b) => [
-			a[X] - b[X],
-			a[Y] - b[Y],
+		? ([ ax, ay ], [ bx, by ]) => [
+			ax - bx,
+			ay - by,
 		]
-		: (a, b) => [
-			_sub(a[X], b[X]),
-			_sub(a[Y], b[Y]),
+		: ([ ax, ay ], [ bx, by ]) => [
+			_sub(ax, bx),
+			_sub(ay, by),
 		]
 	const subTo = isPrimitive
-		? (dst, a, b) => {
-			dst[X] = a[X] - b[X]
-			dst[Y] = a[Y] - b[Y]
+		? (dst, [ ax, ay ], [ bx, by ]) => {
+			dst[X] = ax - bx
+			dst[Y] = ay - by
 			return dst
 		}
-		: (dst, a, b) => {
-			_subTo(dst[X], a[X], b[X])
-			_subTo(dst[Y], a[Y], b[Y])
+		: (dst, [ ax, ay ], [ bx, by ]) => {
+			_subTo(dst[X], ax, bx)
+			_subTo(dst[Y], ay, by)
 			return dst
 		}
 	const sub$$$ = isPrimitive
-		? (a, b) => {
-			a[X] -= b[X]
-			a[Y] -= b[Y]
+		? (a, [ bx, by ]) => {
+			a[X] -= bx
+			a[Y] -= by
 			return a
 		}
-		: (a, b) => {
-			_sub$$$(a[X], b[X])
-			_sub$$$(a[Y], b[Y])
+		: (a, [ bx, by ]) => {
+			const [ ax, ay ] = a
+			_sub$$$(ax, bx)
+			_sub$$$(ay, by)
 			return a
 		}
 	sub.to = subTo
 	sub.$$$ = sub$$$
 
 	const mul = isPrimitive
-		? (a, b) => [
-			a[X] * b[X],
-			a[Y] * b[Y],
+		? ([ ax, ay ], [ bx, by ]) => [
+			ax * bx,
+			ay * by,
 		]
-		: (a, b) => [
-			_mul(a[X], b[X]),
-			_mul(a[Y], b[Y]),
+		: ([ ax, ay ], [ bx, by ]) => [
+			_mul(ax, bx),
+			_mul(ay, by),
 		]
 	const mulTo = isPrimitive
-		? (dst, a, b) => {
-			dst[X] = a[X] * b[X]
-			dst[Y] = a[Y] * b[Y]
+		? (dst, [ ax, ay ], [ bx, by ]) => {
+			dst[X] = ax * bx
+			dst[Y] = ay * by
 			return dst
 		}
-		: (dst, a, b) => {
-			_mulTo(dst[X], a[X], b[X])
-			_mulTo(dst[Y], a[Y], b[Y])
+		: (dst, [ ax, ay ], [ bx, by ]) => {
+			_mulTo(dst[X], ax, bx)
+			_mulTo(dst[Y], ay, by)
 			return dst
 		}
 	const mul$$$ = isPrimitive
-		? (a, b) => {
-			a[X] *= b[X]
-			a[Y] *= b[Y]
+		? (a, [ bx, by ]) => {
+			a[X] *= bx
+			a[Y] *= by
 			return a
 		}
-		: (a, b) => {
-			_mul$$$(a[X], b[X])
-			_mul$$$(a[Y], b[Y])
+		: (a, [ bx, by ]) => {
+			const [ ax, ay ] = a
+			_mul$$$(ax, bx)
+			_mul$$$(ay, by)
 			return a
 		}
 	mul.to = mulTo
 	mul.$$$ = mul$$$
 
 	const div = isPrimitive
-		? (a, b) => [
-			a[X] / b[X],
-			a[Y] / b[Y],
+		? ([ ax, ay ], [ bx, by ]) => [
+			ax / bx,
+			ay / by,
 		]
-		: (a, b) => [
-			_div(a[X], b[X]),
-			_div(a[Y], b[Y]),
+		: ([ ax, ay ], [ bx, by ]) => [
+			_div(ax, bx),
+			_div(ay, by),
 		]
 	const divTo = isPrimitive
-		? (dst, a, b) => {
-			dst[X] = a[X] / b[X]
-			dst[Y] = a[Y] / b[Y]
+		? (dst, [ ax, ay ], [ bx, by ]) => {
+			dst[X] = ax / bx
+			dst[Y] = ay / by
 			return dst
 		}
-		: (dst, a, b) => {
-			_divTo(dst[X], a[X], b[X])
-			_divTo(dst[Y], a[Y], b[Y])
+		: (dst, [ ax, ay ], [ bx, by ]) => {
+			_divTo(dst[X], ax, bx)
+			_divTo(dst[Y], ay, by)
 			return dst
 		}
 	const div$$$ = isPrimitive
-		? (a, b) => {
-			a[X] /= b[X]
-			a[Y] /= b[Y]
+		? (a, [ bx, by ]) => {
+			a[X] /= bx
+			a[Y] /= by
 			return a
 		}
-		: (a, b) => {
-			_div$$$(a[X], b[X])
-			_div$$$(a[Y], b[Y])
+		: (a, [ bx, by ]) => {
+			const [ ax, ay ] = a
+			_div$$$(ax, bx)
+			_div$$$(ay, by)
 			return a
 		}
 	div.to = divTo
 	div.$$$ = div$$$
 
 	const dot = isPrimitive
-		? (a, b) => _ZERO
-		+ a[X] * b[X]
-		+ a[Y] * b[Y]
-		: (a, b) => _add(
-			_mul(a[X], b[X]),
-			_mul(a[Y], b[Y]),
+		? ([ ax, ay ], [ bx, by ]) => _ZERO
+			+ ax * bx
+			+ ay * by
+		: ([ ax, ay ], [ bx, by ]) => _add(
+			_mulTo(_tmp1, ax, bx),
+			_mulTo(_tmp2, ay, by),
 		)
 	const dotTo = !isPrimitive
-		? (_dst, a, b) => _addTo(
-			_dst,
-			_mul(a[X], b[X]),
-			_mul(a[Y], b[Y]),
+		? (dst, [ ax, ay ], [ bx, by ]) => _addTo(
+			dst,
+			_mulTo(_tmp1, ax, bx),
+			_mulTo(_tmp2, ay, by),
 		)
 		: null
 	dot.to = dotTo
 
 	const cross = isPrimitive
-		? (a, b) => _ZERO
-		+ a[X] * b[Y]
-		- a[Y] * b[X]
-		: (a, b) => _sub(
-			_mul(a[X], b[Y]),
-			_mul(a[Y], b[X]),
+		? ([ ax, ay ], [ bx, by ]) => _ZERO
+			+ ax * by
+			- ay * bx
+		: ([ ax, ay ], [ bx, by ]) => _sub(
+			_mulTo(_tmp1, ax, by),
+			_mulTo(_tmp2, ay, bx),
 		)
 	const crossTo = !isPrimitive
-		? (_dst, a, b) => _subTo(
-			_dst,
-			_mulTo(_tmp1, a[X], b[Y]),
-			_mulTo(_tmp2, a[Y], b[X]),
+		? (dst, [ ax, ay ], [ bx, by ]) => _subTo(
+			dst,
+			_mulTo(_tmp1, ax, by),
+			_mulTo(_tmp2, ay, bx),
 		)
 		: null
 	cross.to = crossTo
 
 	const angle = isPrimitive
-		? (a) => {
-			const [ _x, _y ] = a
-			if (_x === _ZERO && _y === _ZERO) { return _NAN }
-			return _atan2(_y, _x)
+		? ([ x, y ]) => {
+			if (x === _ZERO && y === _ZERO) { return _NAN }
+			return _atan2(y, x)
 		}
-		: (a) => {
-			const [ _x, _y ] = a
-			if (_eq(_x, _ZERO) && _eq(_y, _ZERO)) { return _NAN }
-			return _atan2(_y, _x)
+		: ([ x, y ]) => {
+			if (_eq(x, _ZERO) && _eq(y, _ZERO)) { return _NAN }
+			return _atan2(y, x)
 		}
 
 	const angle2 = isPrimitive
@@ -346,85 +341,86 @@ const defineFor = memoize((Domain) => {
 		: (a, b) => {
 			_mul$$$(normTo(_tmp1, a), normTo(_tmp2, b))
 			dotTo(_tmp2, a, b)
-			const cosa = _div$$$(_tmp2, _tmp1)
+			const cosa = _div(_tmp2, _tmp1)
 			return _acos$$$(_min$$$(_max$$$(cosa, _MINUS_ONE), _ONE))
 		}
 
 	const eq = isPrimitive
-		? (a, b) => true
-		&& a[X] === b[X]
-		&& a[Y] === b[Y]
-		: (a, b) => true
-		&& _eq(a[X], b[X])
-		&& _eq(a[Y], b[Y])
+		? ([ ax, ay ], [ bx, by ]) => true
+			&& ax === bx
+			&& ay === by
+		: ([ ax, ay ], [ bx, by ]) => true
+			&& _eq(ax, bx)
+			&& _eq(ay, by)
 
 	const neq = isPrimitive
-		? (a, b) => false
-		|| a[X] !== b[X]
-		|| a[Y] !== b[Y]
-		: (a, b) => false
-		|| _neq(a[X], b[X])
-		|| _neq(a[Y], b[Y])
+		? ([ ax, ay ], [ bx, by ]) => false
+			|| ax !== bx
+			|| ay !== by
+		: ([ ax, ay ], [ bx, by ]) => false
+			|| _neq(ax, bx)
+			|| _neq(ay, by)
 
 	const scale = isPrimitive
-		? (a, _v) => [
-			a[X] * _v,
-			a[Y] * _v,
+		? ([ x, y ], s) => [
+			x * s,
+			y * s,
 		]
-		: (a, _v) => [
-			_mul(a[X], _v),
-			_mul(a[Y], _v),
+		: ([ x, y ], s) => [
+			_mul(x, s),
+			_mul(y, s),
 		]
 	const scaleTo = isPrimitive
-		? (dst, a, _v) => {
-			dst[X] = a[X] * _v
-			dst[Y] = a[Y] * _v
+		? (dst, [ x, y ], s) => {
+			dst[X] = x * s
+			dst[Y] = y * s
 			return dst
 		}
-		: (dst, a, _v) => {
-			_mulTo(dst[X], a[X], _v)
-			_mulTo(dst[Y], a[Y], _v)
+		: (dst, [ x, y ], s) => {
+			_mulTo(dst[X], x, s)
+			_mulTo(dst[Y], y, s)
 			return dst
 		}
 	const scale$$$ = isPrimitive
-		? (a, _v) => {
-			a[X] *= _v
-			a[Y] *= _v
-			return a
+		? (v, s) => {
+			v[X] *= s
+			v[Y] *= s
+			return v
 		}
-		: (a, _v) => {
-			_mul$$$(a[X], _v)
-			_mul$$$(a[Y], _v)
-			return a
+		: (v, s) => {
+			const [ x, y ] = v
+			_mul$$$(x, s)
+			_mul$$$(y, s)
+			return v
 		}
 	scale.to = scaleTo
 	scale.$$$ = scale$$$
 
 	const normSquared = isPrimitive
-		? (a) => _ZERO
-		+ a[X] ** _TWO
-		+ a[Y] ** _TWO
-		: (a) => dot(a, a)
+		? ([ x, y ]) => _ZERO
+			+ x ** _TWO
+			+ y ** _TWO
+		: (v) => dot(v, v)
 	const normSquaredTo = !isPrimitive
-		? (_dst, a) => dotTo(_dst, a, a)
+		? (dst, v) => dotTo(dst, v, v)
 		: null
 
 	const norm = isPrimitive
-		? (a) => _sqrt(normSquared(a))
-		: (a) => _sqrt$$$(normSquared(a))
+		? (v) => _sqrt(normSquared(v))
+		: (v) => _sqrt$$$(normSquared(v))
 	const normTo = !isPrimitive
-		? (_dst, a) => _sqrt$$$(normSquaredTo(_dst, a))
+		? (dst, v) => _sqrt$$$(normSquaredTo(dst, v))
 		: null
 
 	const normalize = isPrimitive
-		? (a) => scale(a, _ONE / norm(a))
-		: (a) => scale(a, _inverse$$$(normTo(_tmp1, a)))
+		? (v) => scale(v, _ONE / norm(v))
+		: (v) => scale(v, _inverse$$$(normTo(_tmp1, v)))
 	const normalizeTo = isPrimitive
-		? (dst, a) => scaleTo(dst, a, _ONE / norm(a))
-		: (dst, a) => scaleTo(dst, a, _inverse$$$(normTo(_tmp1, a)))
+		? (dst, v) => scaleTo(dst, v, _ONE / norm(v))
+		: (dst, v) => scaleTo(dst, v, _inverse$$$(normTo(_tmp1, v)))
 	const normalize$$$ = isPrimitive
-		? (a) => scale$$$(a, _ONE / norm(a))
-		: (a) => scale$$$(a, _inverse$$$(normTo(_tmp1, a)))
+		? (v) => scale$$$(v, _ONE / norm(v))
+		: (v) => scale$$$(v, _inverse$$$(normTo(_tmp1, v)))
 	normalize.to = normalizeTo
 	normalize.$$$ = normalize$$$
 
@@ -432,16 +428,16 @@ const defineFor = memoize((Domain) => {
 		_fromNumber(_x),
 		_fromNumber(_y),
 	]
-	const toNumbers = (a) => [
-		_toNumber(a[X]),
-		_toNumber(a[Y]),
+	const toNumbers = ([ x, y ]) => [
+		_toNumber(x),
+		_toNumber(y),
 	]
 
 	return {
-		Domain,
+		Algebra,
 		...{ X, Y },
 		...{ isFinite, isNaN },
-		...{ x, y, clone, copy },
+		...{ clone, copy },
 		...{ neg, abs, add, sub, mul, div },
 		...{ dot, cross, angle, angle2 },
 		...{ eq, neq },

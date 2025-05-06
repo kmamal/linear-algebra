@@ -12,19 +12,28 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@kmamal/util": "^0.1.13"
+    "@kmamal/util": "^0.2.28"
   },
   "devDependencies": {
-    "@kmamal/numbers": "^0.0.3",
-    "@kmamal/testing": "^0.0.24"
+    "@kmamal/numbers": "^0.0.12",
+    "@kmamal/testing": "^0.0.31"
   },
   "exports": {
     "./vector": "./src/vector.js",
     "./mat3": "./src/mat3.js",
+    "./matrix/gaussian-elimination": "./src/matrix/gaussian-elimination.js",
+    "./matrix/determinant": "./src/matrix/determinant.js",
+    "./matrix/least-squares": "./src/matrix/least-squares.js",
+    "./matrix/decompose-svd": "./src/matrix/decompose-svd.js",
+    "./matrix/pseudoinverse": "./src/matrix/pseudoinverse.js",
+    "./matrix/decompose-lu": "./src/matrix/decompose-lu.js",
+    "./matrix/solve": "./src/matrix/solve.js",
+    "./matrix/inverse": "./src/matrix/inverse.js",
     "./vec2": "./src/vec2.js",
     "./mat2": "./src/mat2.js",
     "./mat4": "./src/mat4.js",
     "./vec3": "./src/vec3.js",
-    "./vec4": "./src/vec4.js"
+    "./vec4": "./src/vec4.js",
+    "./matrix": "./src/matrix.js"
   }
 }

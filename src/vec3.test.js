@@ -7,6 +7,8 @@ const floatEqual = (t, actual, expected, tollerance = 1e-5) => t.ok(
 	{ actual, expected },
 )
 
+const tmp = []
+
 test("vec3.isFinite", (t) => {
 	t.equal(V3.isFinite([ 0, 0, 0 ]), true)
 	t.equal(V3.isFinite([ 10, -5, 0 ]), true)
@@ -33,6 +35,12 @@ test("vec3.neg", (t) => {
 	t.equal(V3.neg([ 4, -3, 1 ]), [ -4, 3, -1 ])
 })
 
+test("vec3.neg.to", (t) => {
+	t.equal(V3.neg.to(tmp, [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.neg.to(tmp, [ -5, 7, -9 ]), [ 5, -7, 9 ])
+	t.equal(V3.neg.to(tmp, [ 4, -3, 1 ]), [ -4, 3, -1 ])
+})
+
 test("vec3.neg.$$$", (t) => {
 	t.equal(V3.neg.$$$([ 0, 0, 0 ]), [ 0, 0, 0 ])
 	t.equal(V3.neg.$$$([ -5, 7, -9 ]), [ 5, -7, 9 ])
@@ -43,6 +51,12 @@ test("vec3.abs", (t) => {
 	t.equal(V3.abs([ 0, 0, 0 ]), [ 0, 0, 0 ])
 	t.equal(V3.abs([ -5, 7, -9 ]), [ 5, 7, 9 ])
 	t.equal(V3.abs([ 4, -3, 1 ]), [ 4, 3, 1 ])
+})
+
+test("vec3.abs.to", (t) => {
+	t.equal(V3.abs.to(tmp, [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.abs.to(tmp, [ -5, 7, -9 ]), [ 5, 7, 9 ])
+	t.equal(V3.abs.to(tmp, [ 4, -3, 1 ]), [ 4, 3, 1 ])
 })
 
 test("vec3.abs.$$$", (t) => {
@@ -57,6 +71,12 @@ test("vec3.add", (t) => {
 	t.equal(V3.add([ 1, 2, 3 ], [ 4, 5, 6 ]), [ 5, 7, 9 ])
 })
 
+test("vec3.add.to", (t) => {
+	t.equal(V3.add.to(tmp, [ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.add.to(tmp, [ 1, -1, 1 ], [ -1, 1, -1 ]), [ 0, 0, 0 ])
+	t.equal(V3.add.to(tmp, [ 1, 2, 3 ], [ 4, 5, 6 ]), [ 5, 7, 9 ])
+})
+
 test("vec3.add.$$$", (t) => {
 	t.equal(V3.add.$$$([ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
 	t.equal(V3.add.$$$([ 1, -1, 1 ], [ -1, 1, -1 ]), [ 0, 0, 0 ])
@@ -69,10 +89,61 @@ test("vec3.sub", (t) => {
 	t.equal(V3.sub([ 1, 2, 3 ], [ 4, 5, 6 ]), [ -3, -3, -3 ])
 })
 
+test("vec3.sub.to", (t) => {
+	t.equal(V3.sub.to(tmp, [ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.sub.to(tmp, [ 1, -1, 1 ], [ -1, 1, -1 ]), [ 2, -2, 2 ])
+	t.equal(V3.sub.to(tmp, [ 1, 2, 3 ], [ 4, 5, 6 ]), [ -3, -3, -3 ])
+})
+
 test("vec3.sub.$$$", (t) => {
 	t.equal(V3.sub.$$$([ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
 	t.equal(V3.sub.$$$([ 1, -1, 1 ], [ -1, 1, -1 ]), [ 2, -2, 2 ])
 	t.equal(V3.sub.$$$([ 1, 2, 3 ], [ 4, 5, 6 ]), [ -3, -3, -3 ])
+})
+
+test("vec3.mul", (t) => {
+	t.equal(V3.mul([ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul([ 0, 0, 0 ], [ 1, 1, 1 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul([ 1, 1, 1 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul([ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.mul([ 1, 2, 3 ], [ 5, 6, 7 ]), [ 5, 12, 21 ])
+})
+
+test("vec3.mul.to", (t) => {
+	t.equal(V3.mul.to(tmp, [ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.to(tmp, [ 0, 0, 0 ], [ 1, 1, 1 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.to(tmp, [ 1, 1, 1 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.to(tmp, [ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.mul.to(tmp, [ 1, 2, 3 ], [ 5, 6, 7 ]), [ 5, 12, 21 ])
+})
+
+test("vec3.mul.$$$", (t) => {
+	t.equal(V3.mul.$$$([ 0, 0, 0 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.$$$([ 0, 0, 0 ], [ 1, 1, 1 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.$$$([ 1, 1, 1 ], [ 0, 0, 0 ]), [ 0, 0, 0 ])
+	t.equal(V3.mul.$$$([ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.mul.$$$([ 1, 2, 3 ], [ 5, 6, 7 ]), [ 5, 12, 21 ])
+})
+
+test("vec3.div", (t) => {
+	t.equal(V3.div([ 0, 0, 0 ], [ 0, 0, 0 ]), [ NaN, NaN, NaN ])
+	t.equal(V3.div([ 0, 0, 0 ], [ 1, 2, 3 ]), [ 0, 0, 0 ])
+	t.equal(V3.div([ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.div([ 2, 4, 6 ], [ 1, 2, 3 ]), [ 2, 2, 2 ])
+})
+
+test("vec3.div.to", (t) => {
+	t.equal(V3.div.to(tmp, [ 0, 0, 0 ], [ 0, 0, 0 ]), [ NaN, NaN, NaN ])
+	t.equal(V3.div.to(tmp, [ 0, 0, 0 ], [ 1, 2, 3 ]), [ 0, 0, 0 ])
+	t.equal(V3.div.to(tmp, [ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.div.to(tmp, [ 2, 4, 6 ], [ 1, 2, 3 ]), [ 2, 2, 2 ])
+})
+
+test("vec3.div.$$$", (t) => {
+	t.equal(V3.div.$$$([ 0, 0, 0 ], [ 0, 0, 0 ]), [ NaN, NaN, NaN ])
+	t.equal(V3.div.$$$([ 0, 0, 0 ], [ 1, 2, 3 ]), [ 0, 0, 0 ])
+	t.equal(V3.div.$$$([ 1, -1, 1 ], [ -1, 1, -1 ]), [ -1, -1, -1 ])
+	t.equal(V3.div.$$$([ 2, 4, 6 ], [ 1, 2, 3 ]), [ 2, 2, 2 ])
 })
 
 test("vec3.dot", (t) => {
@@ -120,6 +191,14 @@ test("vec3.scale", (t) => {
 	t.equal(V3.scale([ 3, 4, 5 ], 2), [ 6, 8, 10 ])
 })
 
+test("vec3.scale.to", (t) => {
+	t.equal(V3.scale.to(tmp, [ 0, 0, 0 ], 1), [ 0, 0, 0 ])
+	t.equal(V3.scale.to(tmp, [ 1, 0, 0 ], 1), [ 1, 0, 0 ])
+	t.equal(V3.scale.to(tmp, [ 0, 1, 0 ], 1), [ 0, 1, 0 ])
+	t.equal(V3.scale.to(tmp, [ 0, 0, 1 ], 1), [ 0, 0, 1 ])
+	t.equal(V3.scale.to(tmp, [ 3, 4, 5 ], 2), [ 6, 8, 10 ])
+})
+
 test("vec3.scale.$$$", (t) => {
 	t.equal(V3.scale.$$$([ 0, 0, 0 ], 1), [ 0, 0, 0 ])
 	t.equal(V3.scale.$$$([ 1, 0, 0 ], 1), [ 1, 0, 0 ])
@@ -158,6 +237,16 @@ test("vec3.normalize", (t) => {
 	t.equal(V3.normalize([ 0, 0, 2 ]), [ 0, 0, 1 ])
 	t.equal(V3.normalize([ 0, 2, 0 ]), [ 0, 1, 0 ])
 	t.equal(V3.normalize([ 0, 0, -4 ]), [ 0, 0, -1 ])
+})
+
+test("vec3.normalize.to", (t) => {
+	t.equal(V3.normalize.to(tmp, [ 0, 0, 0 ]), [ NaN, NaN, NaN ])
+	t.equal(V3.normalize.to(tmp, [ 1, 0, 0 ]), [ 1, 0, 0 ])
+	t.equal(V3.normalize.to(tmp, [ 0, 1, 0 ]), [ 0, 1, 0 ])
+	t.equal(V3.normalize.to(tmp, [ 0, 0, 1 ]), [ 0, 0, 1 ])
+	t.equal(V3.normalize.to(tmp, [ 0, 0, 2 ]), [ 0, 0, 1 ])
+	t.equal(V3.normalize.to(tmp, [ 0, 2, 0 ]), [ 0, 1, 0 ])
+	t.equal(V3.normalize.to(tmp, [ 0, 0, -4 ]), [ 0, 0, -1 ])
 })
 
 test("vec3.normalize.$$$", (t) => {
