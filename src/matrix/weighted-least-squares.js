@@ -26,8 +26,6 @@ const defineFor = memoize((Matrix) => {
 	const _mulTo = _mul.to
 	const _mul$$$ = _mul.$$$
 
-	const vecMul$$$ = vecMul.$$$
-
 	const { solve } = require('./solve').defineFor(Matrix)
 
 	const weightedGramMatrix = isPrimitive
@@ -89,7 +87,7 @@ const defineFor = memoize((Matrix) => {
 		if (b.length !== M) { throw new Error("bad length") }
 
 		const aTWa = weightedGramMatrix(a, M, N, weights)
-		const aTWb = vecMul$$$(mulVecMat(b, a, M, N), weights)
+		const aTWb = mulVecMat(vecMul(b, weights), a, M, N)
 		return solve(aTWa, N, N, aTWb)
 	}
 
