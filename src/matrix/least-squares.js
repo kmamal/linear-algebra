@@ -84,7 +84,7 @@ const defineFor = memoize((Matrix) => {
 		if (b.length !== M) { throw new Error("bad length") }
 
 		const aTa = gramMatrix(a, M, N)
-		const aTb = mulVecMat(b, a, N, M)
+		const aTb = mulVecMat(b, a, M, N)
 		return solve(aTa, N, N, aTb)
 	}
 

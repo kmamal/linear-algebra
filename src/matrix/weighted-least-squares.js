@@ -89,7 +89,7 @@ const defineFor = memoize((Matrix) => {
 		if (b.length !== M) { throw new Error("bad length") }
 
 		const aTWa = weightedGramMatrix(a, M, N, weights)
-		const aTWb = vecMul$$$(mulVecMat(b, a, N, M), weights)
+		const aTWb = vecMul$$$(mulVecMat(b, a, M, N), weights)
 		return solve(aTWa, N, N, aTWb)
 	}
 
