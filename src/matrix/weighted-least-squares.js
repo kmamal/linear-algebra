@@ -6,7 +6,6 @@ const defineFor = memoize((Matrix) => {
 
 	const {
 		transpose,
-		mulMatVec,
 		mulVecMat,
 	} = Matrix
 
@@ -19,9 +18,15 @@ const defineFor = memoize((Matrix) => {
 		mul: _mul,
 	} = Matrix.Algebra
 
+	const {
+		mul: vecMul,
+	} = require('../vector').defineFor(Matrix.Algebra)
+
 	const _add$$$ = _add.$$$
 	const _mulTo = _mul.to
 	const _mul$$$ = _mul.$$$
+
+	const vecMul$$$ = vecMul.$$$
 
 	const { solve } = require('./solve').defineFor(Matrix)
 
@@ -78,14 +83,14 @@ const defineFor = memoize((Matrix) => {
 			return res
 		}
 
-	const weightedLeastSquares = (a, M, N, b) => {
+	const weightedLeastSquares = (a, M, N, b, weights) => {
 		const { length } = a
 		if (M * N !== length) { throw new Error("bad length") }
 		if (b.length !== M) { throw new Error("bad length") }
 
-		const aTa = weightedGramMatrix(a, M, N)
-		const aTb = mulVecMat(b, a, N, M)
-		return solve(aTa, N, N, aTb)
+		const aTWa = weightedGramMatrix(a, M, N, weights)
+		const aTWb = vecMul$$$(mulVecMat(b, a, N, M), weights)
+		return solve(aTWa, N, N, aTWb)
 	}
 
 	return {
