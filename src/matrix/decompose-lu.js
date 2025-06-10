@@ -1,6 +1,7 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { create } = require('@kmamal/util/array/create')
 const { swap } = require('@kmamal/util/array/swap')
+const { isNear } = require('@kmamal/util/number/is-near')
 
 const swap$$$ = swap.$$$
 
@@ -47,15 +48,24 @@ const defineFor = memoize((Matrix) => {
 
 			let row = 0
 			let col = 0
-			while (row < M && col < N) {
+			while (col < N) {
 				let pivot = upper[row * N + col]
+				if (isNear(pivot, _ZERO)) {
+					upper[row * N + col] = _ZERO
+					pivot = _ZERO
+				}
 				if (pivot === _ZERO) {
 					for (let m = row + 1; m < M; m++) {
 						const p = upper[m * N + col]
 						if (p === _ZERO) { continue }
+						if (isNear(p, _ZERO)) {
+							upper[m * N + col] = _ZERO
+							pivot = _ZERO
+							continue
+						}
 
 						pivot = p
-						for (let n = 0; n < col; n++) {
+						for (let n = 0; n < row; n++) {
 							swap$$$(lower, row * N + n, m * N + n)
 						}
 						for (let n = col; n < N; n++) {
@@ -76,12 +86,18 @@ const defineFor = memoize((Matrix) => {
 				for (let m = row + 1; m < M; m++) {
 					const q = upper[m * N + col]
 					if (q === _ZERO) { continue }
+					if (isNear(q, _ZERO)) {
+						upper[m * N + col] = _ZERO
+						continue
+					}
 
 					const s = q / pivot
-					for (let n = col; n < N; n++) {
-						upper[m * N + n] -= s * upper[row * N + n]
+					upper[m * N + col] = _ZERO
+					for (let n = col + 1; n < N; n++) {
+						const diff = upper[m * N + n] - s * upper[row * N + n]
+						upper[m * N + n] = isNear(diff, _ZERO) ? _ZERO : diff
 					}
-					lower[m * N + col] = s
+					lower[m * N + row] = s
 				}
 
 				row++

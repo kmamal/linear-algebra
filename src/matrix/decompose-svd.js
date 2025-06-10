@@ -73,7 +73,7 @@ const defineFor = memoize((Matrix) => {
 					}
 
 					const b = (dii - djj) / (2 * dij)
-					const sb = b < 0 ? -1 : 1
+					const sb = Math.sign(b)
 					const t = sb / (Math.abs(b) + Math.sqrt(1 + b * b))
 					const c = 1 / Math.sqrt(1 + t * t)
 					const s = c * t
