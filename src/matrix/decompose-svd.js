@@ -36,8 +36,7 @@ const defineFor = memoize((Matrix) => {
 			let didStuff = false
 
 			for (let i = 0; i < rank - 1; i++) {
-				const dii = squaredNorms[i]
-				if (isNear(dii, 0)) {
+				if (isNear(squaredNorms[i], 0)) {
 					rank--
 					if (i !== rank) {
 						swap$$$(columnsOfUS, i, rank)
@@ -45,12 +44,12 @@ const defineFor = memoize((Matrix) => {
 						swap$$$(rowsOfVt, i, rank)
 					}
 					didStuff = true
+					i--
 					continue
 				}
 
 				for (let j = i + 1; j < rank; j++) {
-					const djj = squaredNorms[j]
-					if (isNear(djj, 0)) {
+					if (isNear(squaredNorms[j], 0)) {
 						rank--
 						if (j !== rank) {
 							swap$$$(columnsOfUS, j, rank)
@@ -58,11 +57,14 @@ const defineFor = memoize((Matrix) => {
 							swap$$$(rowsOfVt, j, rank)
 						}
 						didStuff = true
+						j--
 						continue
 					}
 
-					const dij = Vector.dot(columnsOfUS[i], columnsOfUS[j])
-					if (isNear(dij, 0)) {
+					const dot = Vector.dot(columnsOfUS[i], columnsOfUS[j])
+					const cosine = dot / Math.sqrt(squaredNorms[i] * squaredNorms[j])
+
+					if (isNear(cosine, 0)) {
 						if (squaredNorms[i] < squaredNorms[j]) {
 							swap$$$(columnsOfUS, i, j)
 							swap$$$(squaredNorms, i, j)
@@ -72,7 +74,7 @@ const defineFor = memoize((Matrix) => {
 						continue
 					}
 
-					const b = (dii - djj) / (2 * dij)
+					const b = (squaredNorms[i] - squaredNorms[j]) / (2 * dot)
 					const sb = Math.sign(b)
 					const t = sb / (Math.abs(b) + Math.sqrt(1 + b * b))
 					const c = 1 / Math.sqrt(1 + t * t)
@@ -94,7 +96,6 @@ const defineFor = memoize((Matrix) => {
 						rowsOfVt[i][k] = yi
 						rowsOfVt[j][k] = yj
 					}
-
 
 					if (squaredNorms[i] < squaredNorms[j]) {
 						swap$$$(columnsOfUS, i, j)

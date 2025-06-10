@@ -123,7 +123,7 @@ const defineFor = memoize((Matrix) => {
 
 			let row = 0
 			let col = 0
-			while (row < M && col < N) {
+			while (col < N) {
 				let pivot = upper[row * N + col]
 				if (_eq(pivot, _ZERO)) {
 					for (let m = row + 1; m < M; m++) {
@@ -131,7 +131,7 @@ const defineFor = memoize((Matrix) => {
 						if (_eq(p, _ZERO)) { continue }
 
 						pivot = p
-						for (let n = 0; n < col; n++) {
+						for (let n = 0; n < row; n++) {
 							swap$$$(lower, row * N + n, m * N + n)
 						}
 						for (let n = col; n < N; n++) {
@@ -157,7 +157,7 @@ const defineFor = memoize((Matrix) => {
 					for (let n = col; n < N; n++) {
 						_sub$$$(upper[m * N + n], _mulTo(_tmp1, s, upper[row * N + n]))
 					}
-					lower[m * N + col] = s
+					lower[m * N + row] = s
 				}
 
 				row++
