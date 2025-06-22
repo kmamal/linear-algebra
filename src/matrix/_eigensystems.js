@@ -1,4 +1,6 @@
 const { memoize } = require('@kmamal/util/function/memoize')
+const { create } = require('@kmamal/util/array/create')
+const { uniform } = require('@kmamal/util/random/uniform')
 
 const defineFor = memoize((Matrix) => {
 	const {
@@ -24,7 +26,7 @@ const init = ({ mat, M, N, vec }) => {
 	if (M * N !== length) { throw new Error("bad length") }
 	if (M !== N) { throw new Error("not square") }
 
-	const eigenvector = vec ?? create(N, Math.random)
+	const eigenvector = vec ?? create(N, uniform)
 	V.normalize.$$$(eigenvector)
 	return {
 		mat: Array.from(mat),

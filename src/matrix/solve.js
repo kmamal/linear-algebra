@@ -105,9 +105,11 @@ const defineFor = memoize((Matrix) => {
 		if (M !== N) { throw new Error("not square") }
 		if (b.length !== M) { throw new Error("bad length") }
 
-		const pb = new Array(b.length)
-		for (let i = 0; i < b.length; i++) {
+		const pb = new Array(M)
+		for (let i = 0; i < M; i++) {
 			pb[i] = b[swaps[i]]
+
+			if (U[i * N + i] === 0) { throw new Error("singular") }
 		}
 
 		const y = solveLowerTriangular(L, M, N, pb)
