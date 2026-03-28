@@ -10,10 +10,6 @@ const defineFor = memoize((Matrix) => {
 		mulMatMat,
 	} = Matrix
 
-	const {
-		foo: _foo,
-	} = Matrix.Algebra
-
 	const Vector = require('../vector').defineFor(Matrix.Algebra)
 
 	const decomposeSVD = (mat, M, N) => {
@@ -62,9 +58,8 @@ const defineFor = memoize((Matrix) => {
 					}
 
 					const dot = Vector.dot(columnsOfUS[i], columnsOfUS[j])
-					const cosine = dot / Math.sqrt(squaredNorms[i] * squaredNorms[j])
 
-					if (isNear(cosine, 0)) {
+					if (dot * dot < 1e-10 * squaredNorms[i] * squaredNorms[j]) {
 						if (squaredNorms[i] < squaredNorms[j]) {
 							swap$$$(columnsOfUS, i, j)
 							swap$$$(squaredNorms, i, j)
@@ -75,8 +70,7 @@ const defineFor = memoize((Matrix) => {
 					}
 
 					const b = (squaredNorms[i] - squaredNorms[j]) / (2 * dot)
-					const sb = Math.sign(b)
-					const t = sb / (Math.abs(b) + Math.sqrt(1 + b * b))
+					const t = Math.sign(b) / (Math.abs(b) + Math.sqrt(1 + b * b))
 					const c = 1 / Math.sqrt(1 + t * t)
 					const s = c * t
 

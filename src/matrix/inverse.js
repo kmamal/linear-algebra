@@ -118,7 +118,7 @@ const defineFor = memoize((Matrix) => {
 				_copy(augmented[m * N2 + N + m], _ONE)
 			}
 
-			const success = _gaussianElimination(augmented, M, N, true)
+			const success = _gaussianElimination(augmented, M, N2, true)
 			if (!success) { throw new Error("singular matrix") }
 
 			_jordanElimination(augmented, M, N2)

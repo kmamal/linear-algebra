@@ -19,24 +19,24 @@
     "@kmamal/testing": "^0.0.31"
   },
   "exports": {
-    "./vector": "./src/vector.js",
+    "./vec3": "./src/vec3.js",
     "./mat3": "./src/mat3.js",
-    "./matrix/gaussian-elimination": "./src/matrix/gaussian-elimination.js",
+    "./vec4": "./src/vec4.js",
+    "./mat4": "./src/mat4.js",
+    "./mat2": "./src/mat2.js",
+    "./vector": "./src/vector.js",
+    "./matrix": "./src/matrix.js",
+    "./matrix/solve": "./src/matrix/solve.js",
+    "./matrix/decompose-lu": "./src/matrix/decompose-lu.js",
     "./matrix/determinant": "./src/matrix/determinant.js",
-    "./matrix/least-squares": "./src/matrix/least-squares.js",
-    "./matrix/decompose-svd": "./src/matrix/decompose-svd.js",
+    "./matrix/weighted-least-squares": "./src/matrix/weighted-least-squares.js",
     "./matrix/pseudoinverse": "./src/matrix/pseudoinverse.js",
     "./matrix/ridge": "./src/matrix/ridge.js",
-    "./matrix/decompose-lu": "./src/matrix/decompose-lu.js",
-    "./matrix/weighted-least-squares": "./src/matrix/weighted-least-squares.js",
-    "./matrix/solve": "./src/matrix/solve.js",
     "./matrix/condition-number": "./src/matrix/condition-number.js",
+    "./matrix/gaussian-elimination": "./src/matrix/gaussian-elimination.js",
     "./matrix/inverse": "./src/matrix/inverse.js",
-    "./vec2": "./src/vec2.js",
-    "./mat2": "./src/mat2.js",
-    "./mat4": "./src/mat4.js",
-    "./vec3": "./src/vec3.js",
-    "./vec4": "./src/vec4.js",
-    "./matrix": "./src/matrix.js"
+    "./matrix/decompose-svd": "./src/matrix/decompose-svd.js",
+    "./matrix/least-squares": "./src/matrix/least-squares.js",
+    "./vec2": "./src/vec2.js"
   }
 }

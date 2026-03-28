@@ -375,9 +375,12 @@ const defineFor = memoize((Algebra) => {
 			return _acos(_min(_max(cosa, _MINUS_ONE), _ONE))
 		}
 		: (a, b) => {
-			_mul$$$(normTo(_tmp1, a), normTo(_tmp2, b))
+			const normProd = {}
+			normTo(normProd, a)
+			normTo(_tmp2, b)
+			_mul$$$(normProd, _tmp2)
 			dotTo(_tmp2, a, b)
-			const cosa = _div$$$(_tmp2, _tmp1)
+			const cosa = _div$$$(_tmp2, normProd)
 			return _acos$$$(_min$$$(_max$$$(cosa, _MINUS_ONE), _ONE))
 		}
 

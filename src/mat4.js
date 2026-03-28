@@ -852,13 +852,13 @@ const defineFor = memoize((Algebra) => {
 		const _sub__mul_m14_m23__mul_m13_m24 = _neg(_sub__mul_m13_m24__mul_m14_m23)
 		const _det_part_3 = _add3(
 			_mul(m42, _sub__mul_m13_m24__mul_m14_m23),
+			_mul(m43, _sub__mul_m14_m22__mul_m12_m24),
 			_mul(m44, _sub__mul_m12_m23__mul_m13_m22),
-			_mul(m44, _sub__mul_m14_m22__mul_m12_m24),
 		)
 		const _det_part_4 = _add3(
 			_mul(m32, _sub__mul_m14_m23__mul_m13_m24),
+			_mul(m33, _sub__mul_m12_m24__mul_m14_m22),
 			_mul(m34, _sub__mul_m13_m22__mul_m12_m23),
-			_mul(m34, _sub__mul_m12_m24__mul_m14_m22),
 		)
 		/* eslint-enable camelcase */
 
@@ -911,13 +911,13 @@ const defineFor = memoize((Algebra) => {
 		const _sub__mul_m14_m23__mul_m13_m24 = _neg(_sub__mul_m13_m24__mul_m14_m23)
 		const _det_part_3 = _add3(
 			_mul(m42, _sub__mul_m13_m24__mul_m14_m23),
+			_mul(m43, _sub__mul_m14_m22__mul_m12_m24),
 			_mul(m44, _sub__mul_m12_m23__mul_m13_m22),
-			_mul(m44, _sub__mul_m14_m22__mul_m12_m24),
 		)
 		const _det_part_4 = _add3(
 			_mul(m32, _sub__mul_m14_m23__mul_m13_m24),
+			_mul(m33, _sub__mul_m12_m24__mul_m14_m22),
 			_mul(m34, _sub__mul_m13_m22__mul_m12_m23),
-			_mul(m34, _sub__mul_m12_m24__mul_m14_m22),
 		)
 		/* eslint-enable camelcase */
 

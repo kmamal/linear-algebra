@@ -441,7 +441,7 @@ const defineFor = memoize((Algebra) => {
 
 	const cofactor = (m, i, j) => {
 		const factor = minor(m, i, j)
-		return i + j % 2 ? neg(factor) : factor
+		return (i + j) % 2 ? _neg(factor) : factor
 	}
 
 	const cofactors = ([

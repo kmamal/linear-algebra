@@ -60,7 +60,7 @@ const defineFor = memoize((Matrix) => {
 			for (let m = N - 1; m >= 0; m--) {
 				const q = _copy(_tmp1, b[m])
 				for (let n = m + 1; n < N; n++) {
-					_sub$$$(q, _mulTo(_tmp2, a[m * N + n], b[n]))
+					_sub$$$(q, _mulTo(_tmp2, a[m * N + n], x[n]))
 				}
 				_divTo(x[m], q, a[m * N + m])
 			}
@@ -94,7 +94,7 @@ const defineFor = memoize((Matrix) => {
 			for (let m = 0; m < M; m++) {
 				const q = _copy(_tmp1, b[m])
 				for (let n = 0; n < m; n++) {
-					_sub$$$(q, _mulTo(_tmp2, a[m * N + n], b[n]))
+					_sub$$$(q, _mulTo(_tmp2, a[m * N + n], x[n]))
 				}
 				_divTo(x[m], q, a[m * N + m])
 			}

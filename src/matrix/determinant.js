@@ -38,7 +38,7 @@ const defineFor = memoize((Matrix) => {
 			if (_eq(prod, _ZERO)) { return 0 }
 			for (let i = 1; i < N; i++) {
 				const u = U[i * N + i]
-				if (_eq(U, _ZERO)) { return _clone(_ZERO) }
+				if (_eq(u, _ZERO)) { return _clone(_ZERO) }
 				_mul$$$(prod, u)
 			}
 			if (numSwaps % 2 === 1) { _neg$$$(prod) }
