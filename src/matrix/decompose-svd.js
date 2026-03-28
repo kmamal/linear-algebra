@@ -10,6 +10,10 @@ const defineFor = memoize((Matrix) => {
 		mulMatMat,
 	} = Matrix
 
+	const {
+		foo: _foo,
+	} = Matrix.Algebra
+
 	const Vector = require('../vector').defineFor(Matrix.Algebra)
 
 	const decomposeSVD = (mat, M, N) => {
